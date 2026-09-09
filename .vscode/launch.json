@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch (debug)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/__PACKAGE_NAME__",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stop-on-entry": false,
+            "preLaunchTask": "cargo: build"
+        },
+        {
+            "name": "Launch (release)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/release/__PACKAGE_NAME__",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "cargo: build --release"
+        },
+        {
+            "name": "Test (debug)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/deps/__PACKAGE_NAME__-*",
+            "args": ["--test-threads=1"],
+            "cwd": "${workspaceFolder}",
+            "stop-on-entry": false
+        },
+        {
+            "name": "Attach to process",
+            "type": "lldb",
+            "request": "attach",
+            "program": "${workspaceFolder}/target/debug/__PACKAGE_NAME__"
+        }
+    ]
+}
