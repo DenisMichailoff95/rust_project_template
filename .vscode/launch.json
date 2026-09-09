@@ -26,7 +26,8 @@
             "program": "${workspaceFolder}/target/debug/deps/__PACKAGE_NAME__-*",
             "args": ["--test-threads=1"],
             "cwd": "${workspaceFolder}",
-            "stop-on-entry": false
+            "stop-on-entry": false,
+            "preLaunchTask": "cargo: test"
         },
         {
             "name": "Attach to process",

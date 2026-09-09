@@ -233,7 +233,7 @@
     {
       "label": "workspace: generate",
       "type": "shell",
-      "command": "basename \"${workspaceFolder}\" | xargs -I {} sh -c 'cat > \"${workspaceFolder}/.vscode/rust.code-workspace\" <<EOF\n{\n    \"folders\": [\n        {\n            \"path\": \"..\",\n            \"name\": \"{}\"\n        }\n    ]\n}\nEOF'",
+      "command": "printf '{\\n    \"folders\": [\\n        {\\n            \"path\": \"..\",\\n            \"name\": \"%s\"\\n        }\\n    ]\\n}\\n' \"$(basename '${workspaceFolder}')\" > '${workspaceFolder}/.vscode/rust.code-workspace'",
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": false },
       "problemMatcher": [],
@@ -245,7 +245,7 @@
     {
       "label": "template: configure",
       "type": "shell",
-      "command": "PKG=$(grep '^name = ' \"${workspaceFolder}/Cargo.toml\" | head -1 | sed 's/name = \"\\(.*\\)\"/\1/') && sed -i \"s/__PACKAGE_NAME__/$PKG/g\" \"${workspaceFolder}/.vscode/launch.json\"",
+      "command": "PKG=$(grep '^name = ' \"${workspaceFolder}/Cargo.toml\" | head -1 | sed 's/name = \"\\(.*\\)\"/\\1/') && sed -i \"s/__PACKAGE_NAME__/$PKG/g\" \"${workspaceFolder}/.vscode/launch.json\"",
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": false },
       "problemMatcher": [],
