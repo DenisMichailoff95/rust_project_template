@@ -1,17 +1,31 @@
 {
-    "rust-analyzer.linkedProjects": [
-        "Cargo.toml",
-    ],
-    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
-    "rust-analyzer.procMacro.enable": true,
-    "rust-analyzer.check.command": "clippy",
-    "rust-analyzer.check.workspace": true,
-    "rust-analyzer.check.allTargets": true,
-    "rust-analyzer.cargo.features": "all",
-    "rust-analyzer.checkOnSave": true,
-    "editor.formatOnSave": true,
-    "[rust]": {
-        "editor.defaultFormatter": "rust-lang.rust-analyzer",
-        "editor.formatOnSave": true
-    }
+  // Настройки rust-analyzer для проекта. Для мультирепозитория (workspace) нужно открывать
+  // корневую папку workspace и перечислить все Cargo.toml в rust-analyzer.linkedProjects.
+  "rust-analyzer.linkedProjects": [
+    "Cargo.toml",
+  ],
+  // Загружает переменные окружения из OUT_DIR, созданные процедурными макросами
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  // Включает поддержку процедурных макросов (например, #[derive(Serialize)])
+  "rust-analyzer.procMacro.enable": true,
+  // Использует cargo clippy вместо стандартного cargo check для анализа кода
+  "rust-analyzer.check.command": "clippy",
+  // Для мультирепозитория: включает проверку всех крейтов в рабочей области, а не только открытого
+  "rust-analyzer.check.workspace": true,
+  // Для мультирепозитория: проверяет все цели сборки (lib, bin, tests, examples, benches)
+  "rust-analyzer.check.allTargets": true,
+  // Включает все фичи (features) из Cargo.toml для анализа. В workspace это важно,
+  // если фичи включают код в разных крейтах.
+  "rust-analyzer.cargo.features": "all",
+  // Запускает cargo check/clippy автоматически при сохранении файла
+  "rust-analyzer.checkOnSave": true,
+  // Автоматическое форматирование при сохранении
+  "editor.formatOnSave": true,
+  // Настройки форматирования для Rust
+  "[rust]": {
+    // Форматировать Rust код через rust-analyzer (он использует rustfmt под капотом)
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    // Форматировать Rust при сохранении
+    "editor.formatOnSave": true
+  }
 }

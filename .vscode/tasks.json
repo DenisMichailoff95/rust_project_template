@@ -1,10 +1,12 @@
 {
   "version": "2.0.0",
+  // Группа задач для сборки, тестирования и обслуживания Rust проекта через Cargo
   "tasks": [
     {
+      // Инициализирует новый Rust-проект в текущей папке на основе имени workspace
       "label": "cargo: init",
       "type": "shell",
-      "command": "cargo init --name ${input:projectName}",
+      "command": "cargo init --name $(basename '${workspaceFolder}')",
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": false },
       "problemMatcher": ["$rustc"],
@@ -14,9 +16,10 @@
       }
     },
     {
+      // Создает новый Rust-проект типа библиотека (lib)
       "label": "cargo: new (lib)",
       "type": "shell",
-      "command": "cargo new --lib ${input:projectName}",
+      "command": "cargo new --lib $(basename '${workspaceFolder}')",
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": false },
       "problemMatcher": ["$rustc"],
@@ -26,9 +29,10 @@
       }
     },
     {
+      // Создает новый Rust-проект типа исполняемый файл (bin)
       "label": "cargo: new (bin)",
       "type": "shell",
-      "command": "cargo new --bin ${input:projectName}",
+      "command": "cargo new --bin $(basename '${workspaceFolder}')",
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": false },
       "problemMatcher": ["$rustc"],
@@ -38,6 +42,7 @@
       }
     },
     {
+      // Собирает проект в режиме debug
       "label": "cargo: build",
       "type": "shell",
       "command": "cargo build",
@@ -46,6 +51,7 @@
       "problemMatcher": ["$rustc"]
     },
     {
+      // Собирает проект с оптимизациями release
       "label": "cargo: build --release",
       "type": "shell",
       "command": "cargo build --release",
@@ -54,6 +60,7 @@
       "problemMatcher": ["$rustc"]
     },
     {
+      // Собирает все крейты workspace
       "label": "cargo: build workspace",
       "type": "shell",
       "command": "cargo build --workspace",
@@ -62,6 +69,7 @@
       "problemMatcher": ["$rustc"]
     },
     {
+      // Запускает проект в режиме debug
       "label": "cargo: run",
       "type": "shell",
       "command": "cargo run",
@@ -74,6 +82,7 @@
       }
     },
     {
+      // Запускает проект с оптимизациями release
       "label": "cargo: run --release",
       "type": "shell",
       "command": "cargo run --release",
@@ -86,6 +95,7 @@
       }
     },
     {
+      // Запускает unit и integration тесты
       "label": "cargo: test",
       "type": "shell",
       "command": "cargo test",
@@ -98,6 +108,7 @@
       }
     },
     {
+      // Запускает тесты во всех крейтах workspace
       "label": "cargo: test workspace",
       "type": "shell",
       "command": "cargo test --workspace",
@@ -110,6 +121,7 @@
       }
     },
     {
+      // Запускает тесты для конкретного пакета (запрашивает имя пакета)
       "label": "cargo: test package",
       "type": "shell",
       "command": "cargo test -p ${input:packageName}",
@@ -122,6 +134,7 @@
       }
     },
     {
+      // Запускает бенчмарки проекта
       "label": "cargo: bench",
       "type": "shell",
       "command": "cargo bench",
@@ -134,6 +147,7 @@
       }
     },
     {
+      // Запускает бенчмарки для конкретного пакета (запрашивает имя пакета)
       "label": "cargo: bench package",
       "type": "shell",
       "command": "cargo bench -p ${input:packageName}",
@@ -146,6 +160,7 @@
       }
     },
     {
+      // Запускает статический анализатор Clippy для всего workspace со всеми целями
       "label": "cargo: clippy",
       "type": "shell",
       "command": "cargo clippy --workspace --all-targets -- -D warnings",
@@ -158,6 +173,7 @@
       }
     },
     {
+      // Проверяет форматирование кода без изменений (cargo fmt --check)
       "label": "cargo: fmt check",
       "type": "shell",
       "command": "cargo fmt --all --check",
@@ -169,6 +185,7 @@
       }
     },
     {
+      // Форматирует весь код проекта через rustfmt
       "label": "cargo: fmt",
       "type": "shell",
       "command": "cargo fmt --all",
@@ -180,6 +197,7 @@
       }
     },
     {
+      // Обновляет версии зависимостей в Cargo.lock до последних совместимых
       "label": "cargo: update dependencies",
       "type": "shell",
       "command": "cargo update",
@@ -191,6 +209,7 @@
       }
     },
     {
+      // Быстрая проверка кода без сборки артефактов (cargo check)
       "label": "cargo: check",
       "type": "shell",
       "command": "cargo check",
@@ -199,6 +218,7 @@
       "problemMatcher": ["$rustc"]
     },
     {
+      // Быстрая проверка кода всего workspace без сборки артефактов
       "label": "cargo: check workspace",
       "type": "shell",
       "command": "cargo check --workspace",
@@ -207,6 +227,7 @@
       "problemMatcher": ["$rustc"]
     },
     {
+      // Генерирует документацию проекта (cargo doc)
       "label": "cargo: doc",
       "type": "shell",
       "command": "cargo doc --no-deps",
@@ -219,6 +240,7 @@
       }
     },
     {
+      // Очищает директорию сборки target
       "label": "cargo: clean",
       "type": "shell",
       "command": "cargo clean",
@@ -231,6 +253,7 @@
       }
     },
     {
+      // Генерирует rust.code-workspace файл для multi-root workspace
       "label": "workspace: generate",
       "type": "shell",
       "command": "printf '{\\n    \"folders\": [\\n        {\\n            \"path\": \"..\",\\n            \"name\": \"%s\"\\n        }\\n    ]\\n}\\n' \"$(basename '${workspaceFolder}')\" > '${workspaceFolder}/.vscode/rust.code-workspace'",
@@ -243,6 +266,7 @@
       }
     },
     {
+      // Настраивает launch.json: подставляет имя пакета вместо __PACKAGE_NAME__
       "label": "template: configure",
       "type": "shell",
       "command": "PKG=$(grep '^name = ' \"${workspaceFolder}/Cargo.toml\" | head -1 | sed 's/name = \"\\(.*\\)\"/\\1/') && sed -i \"s/__PACKAGE_NAME__/$PKG/g\" \"${workspaceFolder}/.vscode/launch.json\"",
@@ -255,6 +279,7 @@
       }
     },
     {
+      // Зависимая задача: собирает workspace, запускает clippy и проверку форматирования
       "label": "Build All Workspace",
       "dependsOn": [
         "cargo: build workspace",
@@ -268,6 +293,7 @@
       }
     },
     {
+      // Зависимая задача: запускает тесты во всем workspace
       "label": "Test All Workspace",
       "dependsOn": [
         "cargo: test workspace"
@@ -277,16 +303,26 @@
         "kind": "test",
         "isDefault": false
       }
-    }
-  ],
-  "inputs": [
-    {
-      "id": "projectName",
-      "type": "promptString",
-      "description": "Project name for cargo init/new",
-      "default": "my_project"
     },
     {
+      // Комплексная задача инициализации проекта: генерирует workspace, инициализирует cargo проект и настраивает launch.json
+      "label": "project: init",
+      "dependsOn": [
+        "workspace: generate",
+        "cargo: init",
+        "template: configure"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    }
+  ],
+  // Ввод пользователя для задач, требующих дополнительных параметров
+  "inputs": [
+    {
+      // Запрос имени пакета для cargo test/bench -p
       "id": "packageName",
       "type": "promptString",
       "description": "Package name for cargo test/bench -p",

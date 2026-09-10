@@ -2,6 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
+            // Запуск основного бинарного файла проекта в режиме debug через LLDB
             "name": "Launch (debug)",
             "type": "lldb",
             "request": "launch",
@@ -12,6 +13,7 @@
             "preLaunchTask": "cargo: build"
         },
         {
+            // Запуск собранного release-артефакта через LLDB
             "name": "Launch (release)",
             "type": "lldb",
             "request": "launch",
@@ -20,6 +22,7 @@
             "preLaunchTask": "cargo: build --release"
         },
         {
+            // Запуск тестов в debug-режиме через LLDB (один поток, чтобы точнее отлаживать)
             "name": "Test (debug)",
             "type": "lldb",
             "request": "launch",
@@ -30,6 +33,7 @@
             "preLaunchTask": "cargo: test"
         },
         {
+            // Прикрепление LLDB к уже запущенному процессу приложения
             "name": "Attach to process",
             "type": "lldb",
             "request": "attach",
