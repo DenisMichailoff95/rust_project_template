@@ -312,6 +312,7 @@
         "cargo: init",
         "template: configure"
       ],
+      "dependsOrder": "sequence",
       "problemMatcher": [],
       "group": {
         "kind": "build",
